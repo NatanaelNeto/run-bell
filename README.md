@@ -9,3 +9,5 @@ Como vai, pequeno sino! Viu que nosso mundo está desabando?? Você precisa corr
  - Os primeiros testes foram bastante promissores. Queria uma linguagem fácil e mais acessível para começar a programar. Procurei em alguns sites como [*este*](https://www.smashingmagazine.com/2018/03/web-midi-api/) e [*este*](https://medium.com/swinginc/playing-with-midi-in-javascript-b6999f2913c3) para ver como o .js reconheceria uma entrada MIDI.
  - Pelo que eu pude perceber, apenas Opera e Chrome suportam o `navigator.requestMIDIAcess`. Por hora, é o que temos.
  - No teste, para cada nota tocada, o fundo do site muda para uma cor quase aleatória (usa a nota tocada e a sua velocidade como parâmetros).
+### Versão 0.0.2
+ - Versão com mais testes de controle de DOMs, alteração em conjunto e em buffers;
