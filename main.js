@@ -39,15 +39,23 @@ function getMIDIMessage(midiMessage) {
          divConfig.innerHTML = "<div>Configuração do seu controlador MIDI<p>Controlador MIDI configurado!</p></div>"
          window.setTimeout(function(){
             divConfig.style.display = "none";
+            configCancel = window.requestAnimationFrame(loop);
          },1000);
          maxKey = midiMessage.data[1];
          config--;
          range = 255/(maxKey-minKey);
       }else{
+         jumpComma = true;
+         if(bell.jump && notDouble){
+            doubleJumpComma = true;
+         }
+      }
+      
+      /*else{
          body.style.backgroundColor = "rgb(" + Math.random()*((midiMessage.data[1]-minKey)*range) + "," +
          Math.random()*((midiMessage.data[1]-minKey)*range) + "," +
          Math.random()*((midiMessage.data[1]-minKey)*range) +")";
-      }
+      }*/
       /*else if(midiMessage.data[2] <=100){
          body.style.backgroundColor = "rgb(" + (midiMessage.data[0]) + "," +
          ((midiMessage.data[1]-minKey)*range) + "," +
@@ -67,6 +75,7 @@ function onMIDIFailure() {
 }
 
 function restartConfig(){
+   window.cancelAnimationFrame(configCancel);
    config = 2;
    divConfig.style.display = "flex";
    divConfig.innerHTML = "<div>Configuração do seu controlador MIDI <p>Aperte a nota mais grave do seu controlador</p></div>";
@@ -107,3 +116,53 @@ function ensinarTriade(midiMessage){
       triadeInsert = 1;
    }
 }*/
+
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+var jumpComma = false;
+var doubleJumpComma = false;
+var notDouble = true;
+var configCancel;
+
+bell = {
+   height: 32,
+   width:32,
+   jump:true,
+   x:400,
+   y:250,
+   y_vel:0
+}
+loop = function(){
+   if(!bell.jump && jumpComma){
+      bell.y_vel -=30;
+      bell.jump = true;
+   }
+   if(bell.jump && doubleJumpComma){
+      console.log(doubleJumpComma + " " + notDouble);
+      bell.y_vel -=30;
+      doubleJumpComma = false;
+      notDouble = false;
+   }
+
+   bell.y_vel +=1.5;
+   bell.y += bell.y_vel;
+   bell.y_vel *= 0.9;
+
+   if(bell.y > 420-bell.height){
+      bell.y = 420-bell.height;
+      bell.y_vel = 0;
+      bell.jump = false;
+      jumpComma = false;
+      notDouble = true;
+   }
+
+   context.fillStyle = "#222222";
+   context.fillRect(0,0,canvas.width,canvas.height);
+   context.fillStyle = "#333380";
+   context.fillRect(0,420,canvas.width,80);
+   context.fillStyle = "#ff0000";
+   context.beginPath();
+   context.rect(bell.x,bell.y,bell.width,bell.height);
+   context.fill();
+   configCancel = window.requestAnimationFrame(loop);
+}

@@ -11,3 +11,11 @@ Como vai, pequeno sino! Viu que nosso mundo está desabando?? Você precisa corr
  - No teste, para cada nota tocada, o fundo do site muda para uma cor quase aleatória (usa a nota tocada e a sua velocidade como parâmetros).
 ### Versão 0.0.2
  - Versão com mais testes de controle de DOMs, alteração em conjunto e em buffers;
+### Versão 0.0.3
+ - Primeiro teste com canvas;
+ - Após a configuração, um quadrado vermelho é inserido na tela;
+ - Apertar alguma tecla no controlador MIDI permite fazer o quadrado saltar;
+ - Apertar alguma tecla novamente no controlador MIDI permite fazer o quadrado saltar duas vezes;
+ - Saltar duas vezes impede de saltar uma terceira vez;
+ - Solo adicionado;
+ - Reconfigurar o controlador MIDI cancela a animação;
