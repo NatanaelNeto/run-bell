@@ -19,3 +19,6 @@ Como vai, pequeno sino! Viu que nosso mundo está desabando?? Você precisa corr
  - Saltar duas vezes impede de saltar uma terceira vez;
  - Solo adicionado;
  - Reconfigurar o controlador MIDI cancela a animação;
+### Versão 0.0.4
+ - Plataformas se descolam da direita para a esquerda;
+ - Quadrado consegue saltar e ficar nas plataformas;

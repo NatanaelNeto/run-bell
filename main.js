@@ -123,6 +123,7 @@ var jumpComma = false;
 var doubleJumpComma = false;
 var notDouble = true;
 var configCancel;
+var plats = [];
 
 bell = {
    height: 32,
@@ -132,6 +133,22 @@ bell = {
    y:250,
    y_vel:0
 }
+
+function Plat(){
+   this.height = 20;
+   this.width = 350;
+   this.x = canvas.width;
+   this.y = 360;
+   this.draw = function(){
+      context.fillStyle = "#0033aa";
+      context.fillRect(this.x,this.y,this.width,this.height);
+   }
+}
+plats.push(new Plat());
+window.setInterval(function(){
+   plats.push(new Plat());
+},2500);
+
 loop = function(){
    if(!bell.jump && jumpComma){
       bell.y_vel -=30;
@@ -155,6 +172,18 @@ loop = function(){
       jumpComma = false;
       notDouble = true;
    }
+   for(i = 0; i < plats.length; i++){
+         
+      if(bell.x+bell.width>plats[i].x && bell.x<plats[i].x+plats[i].width && bell.y>plats[i].y-bell.height && bell.y<plats[i].y+plats[i].height){
+
+         bell.y = plats[i].y-bell.height;
+         bell.jump = false;
+         jumpComma = false;
+         doubleJumpComma = false;
+         notDouble = true;
+      }
+   }
+
 
    context.fillStyle = "#222222";
    context.fillRect(0,0,canvas.width,canvas.height);
@@ -164,5 +193,10 @@ loop = function(){
    context.beginPath();
    context.rect(bell.x,bell.y,bell.width,bell.height);
    context.fill();
+   
+   for(i = 0; i < plats.length; i++){
+      plats[i].x -=4;
+      plats[i].draw();
+   }
    configCancel = window.requestAnimationFrame(loop);
 }
